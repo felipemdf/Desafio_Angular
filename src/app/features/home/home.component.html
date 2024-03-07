@@ -1,0 +1,97 @@
+<div class="w-full pt-12 leading-6">
+    <div class="mx-auto ">
+        <nav>
+            <ul class="flex items-center p-0 m-0">
+                <li class="flex items-center text-left text-gray-500">
+                    <!-- Heroicons - Home -->
+                    <svg class="block w-5 h-5 align-middle hover:text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path strokeLinecap="round" strokeLinejoin="round"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <svg class="block w-5 h-5 align-middle" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        viewBox="0 0 20 20" aria-hidden="true">
+                        <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z"></path>
+                    </svg>
+
+                    <a href="#" title="" class="text-sm font-normal leading-5 cursor-pointer hover:text-gray-900">
+                        Home </a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</div>
+
+<!-- Filter -->
+<form [formGroup]="formSearch" class="p-6 mt-10 bg-white border border-gray-200 rounded-lg shadow-md">
+    <h2 class="text-xl font-bold text-stone-700">Aplicar filtros</h2>
+    <p class="mt-1 text-sm">Digite as informações conhecidas para uma busca mais precisa</p>
+    <div class="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2 lg:grid-cols-6">
+        <div class="relative flex flex-col md:col-span-3">
+            <label for="nome" class="text-sm font-medium text-stone-600">Nome</label>
+            <input name="nome" type="text" placeholder="Digite o nome" [(ngModel)]="filters.nome" formControlName="nome"
+                class="block w-full px-2 py-2 mt-2 border border-gray-200 rounded-md shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+        </div>
+
+        <div class="flex flex-col md:col-span-1">
+            <label for="sexo" class="text-sm font-medium text-stone-600">Sexo</label>
+
+            <select name="sexo" [(ngModel)]="filters.sexo" formControlName="sexo"
+                class="block w-full py-2 mt-2 border border-gray-200 rounded-md shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                <option value='' disabled selected hidden>Selecionar</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+            </select>
+        </div>
+
+        <div class="flex flex-col md:col-span-2">
+            <label for="date" class="text-sm font-medium text-stone-600">Faixa Etária</label>
+
+            <div class="relative inline-flex gap-3">
+                <input type="number" name="idadeMinima" placeholder="Idade mínima" [(ngModel)]="filters.idadeMinima"
+                    formControlName="idadeMinima"
+                    class="block w-full px-2 py-2 mt-2 border border-gray-200 rounded-md shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+
+                <input type="number" name="idadeMaxima" placeholder="Idade máxima" [(ngModel)]="filters.idadeMaxima"
+                    formControlName="idadeMaxima"
+                    class="block w-full px-2 py-2 mt-2 border border-gray-200 rounded-md shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+            </div>
+        </div>
+    </div>
+
+    <div class="grid justify-end w-full grid-cols-2 mt-8 space-x-4 md:flex">
+        <button (click)="cleanFilters()" type="button"
+            class="px-8 py-2 font-medium text-gray-600 bg-gray-200 rounded-lg outline-none active:scale-95 focus:ring hover:opacity-90">Limpar</button>
+        <button (click)="search()" type="submit"
+            class="px-8 py-2 font-medium text-white bg-blue-600 rounded-lg outline-none active:scale-95 focus:ring hover:opacity-90">Buscar</button>
+    </div>
+</form>
+
+<!-- Content -->
+<section class="p-6 my-10 border border-gray-200 shadow-md">
+    <h1 class="mt-4 mb-12 font-sans text-2xl font-medium text-center">Resultado da busca</h1>
+    <div class="grid max-w-screen-lg grid-cols-1 gap-5 mx-auto md:grid-cols-3 lg:grid-cols-4 ">
+
+        <ng-container *ngFor="let person of missingPeople">
+            <home-card [content]="person"></home-card>
+        </ng-container>
+
+
+        <!-- Pagination -->
+        <div class="flex justify-between mx-auto mt-12 mb-2 space-x-2 bg-white rounded-md col-span-full">
+            <!-- Previous Button -->
+            <button (click)="previousPage()" [disabled]="this.filters.pagina === 0"
+                class="flex items-center justify-center h-10 px-4 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 disabled:pointer-events-none disabled:bg-gray-100">
+                Anterior
+            </button>
+
+            <!-- Next Button -->
+            <button (click)="nextPage()" [disabled]="this.filters.pagina + 1 === this.totalPages"
+                class="flex items-center justify-center h-10 px-4 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg ms-3 hover:bg-gray-100 hover:text-gray-700 disabled:pointer-events-none disabled:bg-gray-100">
+                Próximo
+            </button>
+        </div>
+    </div>
+
+</section>
