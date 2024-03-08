@@ -13,7 +13,24 @@ export interface Person {
   urlFoto?: string;
 }
 
-export interface PersonDetail {}
+export interface ocorrenciaEntrevDesapDTO {
+  informacao?: string;
+  vestimentasDesaparecido?: string;
+}
+
+export interface ultimaOcorrencia {
+  dtDesaparecimento?: string;
+  localDesaparecimentoConcat?: string;
+  ocorrenciaEntrevDesapDTO?:  ocorrenciaEntrevDesapDTO
+};
+export interface PersonDetail {
+  id?: number;
+  nome?: string;
+  idade?: number;
+  sexo?: string;
+  urlFoto?: string;
+  ultimaOcorrencia?: ultimaOcorrencia
+}
 
 export interface PageableHttpResponse {
   content: Person[];
@@ -27,8 +44,4 @@ export interface PageableHttpResponse {
   size: number;
   totalElements: number;
   totalPages: number;
-}
-
-export interface HttpResponse {
-  data: PersonDetail;
 }

@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
-    if (!this.formSearch.valid) {  
+    if (!this.formSearch.valid) {
       alert('Por favor, preencha corretamente todos os campos.');
       return;
     }

@@ -1,19 +1,12 @@
 <article
     class="min-h-full col-span-1 pb-2 m-auto overflow-hidden transition-transform duration-200 rounded-lg shadow-lg cursor-pointer h-[26rem] hover:translate-y-2">
-    <a [id]="content.id" href="#" class="block w-full h-full">
+    <a [routerLink]="['/home/details', content.id]" [id]="content.id" class="block w-full h-full">
         <img class="object-contain w-full h-64 mt-2" alt="featured image"
             [src]="content.urlFoto ? content.urlFoto : 'assets/imageNotFound.png'" />
         <div class="w-full p-4 bg-white">
             <p class="mb-1 text-base font-medium text-red-500 ">Desaparecido</p>
             <p class="text-base font-medium text-gray-800">{{ content.nome}}</p>
             <p class="text-base font-light text-gray-500">{{content.idade}}, {{content.sexo}}</p>
-
-            <!-- <div class="flex flex-wrap items-center justify-center mt-6">
-                <a [id]="content.id" href="#"
-                    class="inline-block px-3 py-2 text-sm font-semibold leading-normal text-center text-white no-underline align-middle bg-gray-800 border border-gray-800 rounded-md shadow-sm cursor-pointer select-none">
-                    Acesse para mais informações
-                </a>
-            </div> -->
         </div>
     </a>
 </article>

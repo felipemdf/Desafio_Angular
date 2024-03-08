@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, retry, throwError } from 'rxjs';
-import { Filter, PageableHttpResponse } from './responses/abitusHttp.response';
+import { Filter, PageableHttpResponse, PersonDetail } from './responses/abitusHttp.response';
 
 @Injectable({
   providedIn: 'root',
@@ -44,8 +44,13 @@ export default class AbitusApiService {
       .pipe(retry(2), catchError(this.handleError));
   }
 
-  public getById(id: number) {}
-
+  public getById(id: number) {
+    return this.httpClient
+      .get<PersonDetail>(`${this.baseUrl}/${id}`, {
+        headers: this.headers,
+      })
+      .pipe(retry(2), catchError(this.handleError));
+  }
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
