@@ -43,11 +43,13 @@ export class HomeComponent implements OnInit {
     this.search();
   }
 
-  search() {
+  search(page: number = 0) {
     if (!this.formSearch.valid) {
       alert('Por favor, preencha corretamente todos os campos.');
       return;
     }
+
+    this.filters.pagina = page;
 
     this.abitusService
       .get(this.filters)
@@ -63,17 +65,13 @@ export class HomeComponent implements OnInit {
 
   nextPage() {
     if (this.filters.pagina < this.data.totalPages) {
-      this.filters.pagina += 1;
-
-      this.search();
+      this.search(this.filters.pagina + 1);
     }
   }
 
   previousPage() {
     if (this.filters.pagina > 1) {
-      this.filters.pagina -= 1;
-
-      this.search();
+      this.search((this.filters.pagina -= 1));
     }
   }
 }
