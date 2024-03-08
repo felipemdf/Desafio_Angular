@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import AbitusApiService from '../../core/services/abitus/abitusApi.service';
-import {
-  Filter,
-  PageableHttpResponse,
-  Person,
-} from 'src/app/core/services/abitus/responses/abitusHttp.response';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Filter } from 'src/app/core/models/abitus/filter.model';
+import { PageableResponse } from 'src/app/core/models/abitus/http/pageableResponse.model';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +11,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   formSearch!: FormGroup;
-
   filters: Filter = { pagina: 0, sexo: '' };
-
-  missingPeople: Person[] = [];
-  totalPages: number = 1;
+  data: PageableResponse = {
+    content: [],
+    empty: true,
+    pageable: { offset: 0, pageNumber: 0, pageSize: 0, paged: false },
+    size: 0,
+    totalElements: 0,
+    totalPages: 0,
+  };
 
   constructor(
     private abitusService: AbitusApiService,
@@ -41,19 +43,19 @@ export class HomeComponent implements OnInit {
     this.search();
   }
 
-  search() {
+  search(page: number = 0) {
     if (!this.formSearch.valid) {
       alert('Por favor, preencha corretamente todos os campos.');
       return;
     }
 
+    this.filters.pagina = page;
+
     this.abitusService
       .get(this.filters)
-      .subscribe((response: PageableHttpResponse) => {
-        console.log(response);
-
-        this.missingPeople = response.content;
-        this.totalPages = response.totalPages;
+      .subscribe((response: PageableResponse) => {
+        this.data = response;
+        this.filters.pagina = this.data.pageable.pageNumber;
       });
   }
 
@@ -62,18 +64,14 @@ export class HomeComponent implements OnInit {
   }
 
   nextPage() {
-    if (this.filters.pagina < this.totalPages) {
-      this.filters.pagina += 1;
-
-      this.search();
+    if (this.filters.pagina < this.data.totalPages) {
+      this.search(this.filters.pagina + 1);
     }
   }
 
   previousPage() {
     if (this.filters.pagina > 1) {
-      this.filters.pagina -= 1;
-
-      this.search();
+      this.search((this.filters.pagina -= 1));
     }
   }
 }

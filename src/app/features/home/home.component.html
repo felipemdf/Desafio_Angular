@@ -67,10 +67,22 @@
     <h1 class="mt-4 mb-12 font-sans text-2xl font-medium text-center">Resultado da busca</h1>
     <div class="grid max-w-screen-lg grid-cols-1 gap-5 mx-auto md:grid-cols-3 lg:grid-cols-4 ">
 
-        <ng-container *ngFor="let person of missingPeople">
-            <home-card [content]="person"></home-card>
+        <ng-container *ngIf="data.content && data.content.length > 0; else noContent">
+            <ng-container *ngFor="let person of data.content">
+                <home-card [content]="person"></home-card>
+            </ng-container>
         </ng-container>
 
+        <ng-template #noContent>
+            <div class="text-center col-span-full " colspan="5">
+                <img class="w-32 h-32 mx-auto"
+                    src="https://res.cloudinary.com/daqsjyrgg/image/upload/v1690261234/di7tvpnzsesyo7vvsrq4.svg"
+                    alt="image empty states">
+                <p class="text-lg font-medium text-center text-gray-700">Nenhum registro encontrado!</p>
+                <p class="text-center text-gray-500">Por favor, verifique os parâmetros da busca e tente novamente...
+                </p>
+            </div>
+        </ng-template>
 
         <!-- Pagination -->
         <div class="flex justify-between mx-auto mt-12 mb-2 space-x-2 bg-white rounded-md col-span-full">
@@ -81,7 +93,7 @@
             </button>
 
             <!-- Next Button -->
-            <button (click)="nextPage()" [disabled]="this.filters.pagina + 1 === this.totalPages"
+            <button (click)="nextPage()" [disabled]="this.filters.pagina + 1 >= this.data.totalPages"
                 class="flex items-center justify-center h-10 px-4 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg ms-3 hover:bg-gray-100 hover:text-gray-700 disabled:pointer-events-none disabled:bg-gray-100">
                 Próximo
             </button>

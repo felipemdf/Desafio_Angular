@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 @Pipe({
   name: 'formatDate'
 })
-export class FormatDatPipe implements PipeTransform {
+export class FormatDatePipe implements PipeTransform {
   transform(value: string | undefined): string | null{
 
     if(!value) return null;
