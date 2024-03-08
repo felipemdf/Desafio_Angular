@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import AbitusApiService from 'src/app/core/services/abitus/abitusApi.service';
-import { PersonDetail } from 'src/app/core/services/abitus/responses/abitusHttp.response';
+
+import { PersonDetails } from 'src/app/core/models/abitus/personDetails.model';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './details.component.html',
 })
 export class DetailsComponent implements OnInit {
-  data: PersonDetail = {};
+  data: PersonDetails = {};
 
   constructor(
     private abitusService: AbitusApiService,
@@ -23,7 +24,7 @@ export class DetailsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.abitusService
         .getById(params['id'])
-        .subscribe((response: PersonDetail) => {
+        .subscribe((response: PersonDetails) => {
           console.log(response);
 
           this.data = response;
@@ -34,7 +35,7 @@ export class DetailsComponent implements OnInit {
   shareWhatsapp() {
     // Devido a estar usando localhost a url não é reconhecida como link no whatsapp
     const link: string = window.location.origin + this.router.url;
-  
+
     const message: string = `PESSOA DESAPARECIDA: ${this.data.nome} de ${
       this.data.idade
     } anos, está ${

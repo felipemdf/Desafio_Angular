@@ -6,7 +6,10 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, retry, throwError } from 'rxjs';
-import { Filter, PageableHttpResponse, PersonDetail } from './responses/abitusHttp.response';
+
+import { Filter } from '../../models/abitus/filter.model';
+import { PageableResponse } from '../../models/abitus/http/pageableResponse.model';
+import { PersonDetails } from '../../models/abitus/personDetails.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +21,7 @@ export default class AbitusApiService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public get(filters: Filter): Observable<PageableHttpResponse> {
+  public get(filters: Filter): Observable<PageableResponse> {
     let params = new HttpParams();
     if (filters.nome && filters.nome.trim().length !== 0)
       params = params.set('nome', filters.nome);
@@ -34,10 +37,8 @@ export default class AbitusApiService {
     params = params.set('porPagina', 12);
     params = params.set('status', 'DESAPARECIDO');
 
-    // console.log(`${this.baseUrl}/aberto/filtro?${params.toString()}`);
-
     return this.httpClient
-      .get<PageableHttpResponse>(`${this.baseUrl}/aberto/filtro`, {
+      .get<PageableResponse>(`${this.baseUrl}/aberto/filtro`, {
         params: params,
         headers: this.headers,
       })
@@ -46,7 +47,7 @@ export default class AbitusApiService {
 
   public getById(id: number) {
     return this.httpClient
-      .get<PersonDetail>(`${this.baseUrl}/${id}`, {
+      .get<PersonDetails>(`${this.baseUrl}/${id}`, {
         headers: this.headers,
       })
       .pipe(retry(2), catchError(this.handleError));

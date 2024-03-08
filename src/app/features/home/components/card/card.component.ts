@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Person } from 'src/app/core/services/abitus/responses/abitusHttp.response';
+
+import { Person } from 'src/app/core/models/abitus/person.model';
 
 @Component({
   selector: 'home-card',
