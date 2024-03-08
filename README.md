@@ -1,27 +1,59 @@
 # DesafioAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
+## Requisitos
 
-## Development server
+Antes de começar, verifique se você tem os seguintes requisitos instalados em sua máquina:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Node.js
+- npm 
+- Docker (opcional)
+- Docker Compose (opcional)
 
-## Code scaffolding
+## Instalação
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Siga estas etapas para configurar o projeto:
 
-## Build
+1. Clone este repositório em sua máquina local:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+   git clone https://github.com/felipemdf/Desafio_Angular.git 
+```
 
-## Running unit tests
+2. Navegue até o diretório do projeto:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+   cd Desafio_Angular 
+```
 
-## Running end-to-end tests
+3. Instale as dependências do projeto:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+   npm i
+```
 
-## Further help
+## Execução
+Para executar o projeto, basta executar o comando:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+   npm run start
+```
+Abra seu navegador e vá para http://localhost:4200 para visualizar a aplicação.
+
+## Docker
+Se você preferir executar a aplicação com Docker, execute os comandos:
+```bash
+   docker build -t projeto_angular .
+```
+
+```bash
+   docker run -p 8080:80 projeto_angular
+```
+Abra seu navegador e vá para http://localhost:8080 para visualizar a aplicação.
+
+## Docker Compose
+Se você tiver o docker compose instalado, você pode executar utilizando o comando
+
+```bash
+   docker-compose up -d
+```
+Abra seu navegador e vá para http://localhost:8080 para visualizar a aplicação.
