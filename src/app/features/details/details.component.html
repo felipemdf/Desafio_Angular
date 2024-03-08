@@ -38,7 +38,7 @@
   <div class="flex flex-col w-full pl-6 mt-10 mb-8 md:mt-4 md:mb-4">
     <header class="border-b border-b-gray-300 ">
       <h1 class="text-3xl font-black text-slate-700">{{data.nome}}</h1>
-      <p class="my-2 text-base leading-tight ">{{data.idade}} anos, {{data.sexo}}</p>
+      <p class="my-2 text-base leading-tight ">{{data.idade}} anos, {{data.sexo | titlecase}}</p>
     </header>
 
 
@@ -46,7 +46,7 @@
     <p class="mb-1"><span class="font-bold">Data:</span> {{data.ultimaOcorrencia?.dtDesaparecimento | formatDate}}</p>
     <p class="mb-1"><span class="font-bold">Local:</span> {{data.ultimaOcorrencia?.localDesaparecimentoConcat}}</p>
     <p class="mb-1"><span class="font-bold">Vestimenta:</span>
-      {{data.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.vestimentasDesaparecido}}</p>
+      {{data.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.vestimentasDesaparecido | titlecase}}</p>
     <p class="mb-1"><span class="font-bold">Informações adicionais:</span>
       {{data.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.informacao}}</p>
 
